@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/perl-module.eclass,v 1.143 2014/10/20 12:47:32 dilfridge Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/perl-module.eclass,v 1.149 2014/11/11 00:49:30 monsieurp Exp $
 
 # @ECLASS: perl-module.eclass
 # @MAINTAINER:
@@ -18,10 +18,7 @@ inherit eutils multiprocessing unpacker
 PERL_EXPF="src_unpack src_compile src_test src_install"
 
 case "${EAPI:-0}" in
-	0|1)
-		PERL_EXPF+=" pkg_setup pkg_preinst pkg_postinst pkg_prerm pkg_postrm"
-		;;
-	2|3|4|5)
+	4|5)
 		PERL_EXPF+=" src_prepare src_configure"
 		[[ ${CATEGORY} == "perl-core" ]] && \
 			PERL_EXPF+=" pkg_postinst pkg_postrm"
@@ -53,14 +50,14 @@ case "${EAPI:-0}" in
 esac
 
 case "${EAPI:-0}" in
-	4|5)
+	5)
 		;;
 	*)
 		ewarn
 		ewarn "******************************************************************"
 		ewarn "${EBUILD}:"
 		ewarn "Support for EAPI=${EAPI:-0} in perl-module.eclass will be removed"
-		ewarn "on 1/Nov/2014. Please fix your overlay ebuilds to use EAPI=5."
+		ewarn "on 1/Feb/2015. Please fix your overlay ebuilds to use EAPI=5."
 		ewarn "******************************************************************"
 		ewarn
 		;;
@@ -102,17 +99,6 @@ perlinfo_done=false
 perl-module_src_unpack() {
 	debug-print-function $FUNCNAME "$@"
 
-	case "${EAPI:-0}" in
-		5)
-			;;
-		4)
-			eqawarn "Support for EAPI=${EAPI:-0} in perl-module.eclass is deprecated."
-			eqawarn "Please fix your ebuilds to use EAPI=5."
-			;;
-		*)
-			;;
-	esac
-
 	unpacker_src_unpack
 	has src_prepare ${PERL_EXPF} || perl-module_src_prepare
 }
@@ -123,6 +109,10 @@ perl-module_src_prepare() {
 	[[ ${PATCHES[@]} ]] && epatch "${PATCHES[@]}"
 	debug-print "$FUNCNAME: applying user patches"
 	epatch_user
+	if [[ ${PERL_RM_FILES[@]} ]]; then
+		debug-print "$FUNCNAME: stripping unneeded files"
+		perl_rm_files "${PERL_RM_FILES[@]}"
+	fi
 	perl_fix_osx_extra
 	esvn_clean
 }
@@ -138,7 +128,6 @@ perl-module_src_prep() {
 	SRC_PREP="yes"
 
 	perl_set_version
-	perl_set_eprefix
 
 	[[ -z ${pm_echovar} ]] && export PERL_MM_USE_DEFAULT=1
 	# Disable ExtUtils::AutoInstall from prompting
@@ -254,7 +243,6 @@ perl-module_src_install() {
 	debug-print-function $FUNCNAME "$@"
 
 	perl_set_version
-	perl_set_eprefix
 
 	local f
 
@@ -315,11 +303,16 @@ perl-module_pkg_postrm() {
 	perl_link_duallife_scripts
 }
 
-perlinfo() {
-	debug-print-function $FUNCNAME "$@"
-	perl_set_version
-}
-
+# @FUNCTION: perl_set_version
+# @USAGE: perl_set_version
+# @DESCRIPTION:
+# Extract version information and installation paths from the current Perl 
+# interpreter. 
+#
+# This sets the following variables: PERL_VERSION, SITE_ARCH, SITE_LIB, 
+# ARCH_LIB, VENDOR_LIB, VENDOR_ARCH
+#
+# This function used to be called perlinfo as well.
 perl_set_version() {
 	debug-print-function $FUNCNAME "$@"
 	debug-print "$FUNCNAME: perlinfo_done=${perlinfo_done}"
@@ -336,11 +329,24 @@ perl_set_version() {
 	VENDOR_ARCH=${installvendorarch}
 }
 
-fixlocalpod() {
+# @FUNCTION: perlinfo
+# @USAGE: perlinfo
+# @DESCRIPTION:
+# This function deprecated.
+# 
+# Please use the function above instead, perl_set_version.
+perlinfo() {
 	debug-print-function $FUNCNAME "$@"
-	perl_delete_localpod
+	eqawarn "perl-modules.eclass: perlinfo is deprecated and will be removed. Please use perl_set_version instead."
+	perl_set_version
 }
 
+# @FUNCTION: perl_delete_localpod
+# @USAGE: perl_delete_localpod
+# @DESCRIPTION:
+# Remove stray perllocal.pod files in the temporary install directory D.
+#
+# This function used to be called fixlocalpod as well.
 perl_delete_localpod() {
 	debug-print-function $FUNCNAME "$@"
 
@@ -348,35 +354,48 @@ perl_delete_localpod() {
 	find "${D}" -depth -mindepth 1 -type d -empty -delete
 }
 
+# @FUNCTION: fixlocalpod
+# @USAGE: fixlocalpod
+# @DESCRIPTION:
+# This function is deprecated. 
+#
+# Please use the function above instead, perl_delete_localpod.
+fixlocalpod() {
+	debug-print-function $FUNCNAME "$@"
+	eqawarn "perl-modules.eclass: fixlocalpod is deprecated and will be removed. Please use perl_delete_localpod instead."
+	perl_delete_localpod
+}
+
+# @FUNCTION: perl_fix_osx_extra
+# @USAGE: perl_fix_osx_extra
+# @DESCRIPTION:
+# Look through ${S} (temporary build directory) for AppleDouble encoded files
+# and get rid of them.
 perl_fix_osx_extra() {
 	debug-print-function $FUNCNAME "$@"
 
-	# Remove "AppleDouble encoded Macintosh file"
 	local f
 	find "${S}" -type f -name "._*" -print0 | while read -rd '' f ; do
 		einfo "Removing AppleDouble encoded Macintosh file: ${f#${S}/}"
 		rm -f "${f}"
 		f=${f#${S}/}
-	#	f=${f//\//\/}
-	#	f=${f//\./\.}
-	#	sed -i "/${f}/d" "${S}"/MANIFEST || die
 		grep -q "${f}" "${S}"/MANIFEST && \
 			elog "AppleDouble encoded Macintosh file in MANIFEST: ${f#${S}/}"
 	done
 }
 
+# @FUNCTION: perl_delete_module_manpages
+# @USAGE: perl_delete_module_manpages
+# Bump off manpages installed by the current module such as *.3pm files as well
+# as empty directories.
 perl_delete_module_manpages() {
 	debug-print-function $FUNCNAME "$@"
 
-	perl_set_eprefix
-
 	if [[ -d "${ED}"/usr/share/man ]] ; then
-#		einfo "Cleaning out stray man files"
 		find "${ED}"/usr/share/man -type f -name "*.3pm" -delete
 		find "${ED}"/usr/share/man -depth -type d -empty -delete
 	fi
 }
-
 
 perl_delete_packlist() {
 	debug-print-function $FUNCNAME "$@"
@@ -399,13 +418,47 @@ perl_remove_temppath() {
 	done
 }
 
+# @FUNCTION: perl_rm_files
+# @USAGE: perl_rm_files "file_1" "file_2"
+# @DESCRIPTION:
+# Remove certain files from a Perl release and remove them from the MANIFEST
+# while we're there.
+#
+# Most useful in src_prepare for nuking bad tests, and is highly recommended
+# for any tests like 'pod.t', 'pod-coverage.t' or 'kwalitee.t', as what they
+# test is completely irrelevant to end users, and frequently fail simply
+# because the authors of Test::Pod... changed their recommendations, and thus
+# failures are only useful feedback to Authors, not users.
+#
+# Removing from MANIFEST also avoids needless log messages warning
+# users about files "missing from their kit".
+perl_rm_files() {
+	debug-print-function $FUNCNAME "$@"
+	local skipfile="${T}/.gentoo_makefile_skip"
+	local manifile="${S}/MANIFEST"
+	local manitemp="${T}/.gentoo_manifest_temp"
+	oldifs="$IFS"
+	IFS="\n"
+	for filename in "$@"; do
+		einfo "Removing un-needed ${filename}";
+		# Remove the file
+		rm -f "${S}/${filename}"
+		[[ -e "${manifile}" ]] && echo "${filename}" >> "${skipfile}"
+	done
+	if [[ -e "${manifile}" && -e "${skipfile}" ]]; then
+		einfo "Fixing Manifest"
+		grep -v -F -f "${skipfile}" "${manifile}" > "${manitemp}"
+		mv -f -- "${manitemp}" "${manifile}"
+		rm -- "${skipfile}";
+	fi
+	IFS="$oldifs"
+}
+
 perl_link_duallife_scripts() {
 	debug-print-function $FUNCNAME "$@"
 	if [[ ${CATEGORY} != perl-core ]] || ! has_version ">=dev-lang/perl-5.8.8-r8" ; then
 		return 0
 	fi
-
-	perl_set_eprefix
 
 	local i ff
 	if has "${EBUILD_PHASE:-none}" "postinst" "postrm" ; then
@@ -430,17 +483,4 @@ perl_link_duallife_scripts() {
 		done
 		popd > /dev/null
 	fi
-}
-
-perl_set_eprefix() {
-	debug-print-function $FUNCNAME "$@"
-	case ${EAPI:-0} in
-		0|1|2)
-			if ! use prefix; then
-				EPREFIX=
-				ED=${D}
-				EROOT=${ROOT}
-			fi
-			;;
-	esac
 }

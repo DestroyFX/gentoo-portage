@@ -1,6 +1,24 @@
 # ChangeLog for dev-util/nvidia-cuda-toolkit
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/dev-util/nvidia-cuda-toolkit/ChangeLog,v 1.89 2014/09/15 18:54:05 jlec Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-util/nvidia-cuda-toolkit/ChangeLog,v 1.93 2014/11/06 08:15:19 jlec Exp $
+
+  06 Nov 2014; Justin Lecher <jlec@gentoo.org>
+  nvidia-cuda-toolkit-6.5.14.ebuild:
+  Fix non existing documentation directory on x86
+
+  05 Nov 2014; Justin Lecher <jlec@gentoo.org>
+  nvidia-cuda-toolkit-6.5.14.ebuild:
+  Test for presents of deprecated.3 before moving, #525226
+
+*nvidia-cuda-toolkit-4.2.9-r2 (04 Nov 2014)
+
+  04 Nov 2014; Patrick Lauer <patrick@gentoo.org>
+  +nvidia-cuda-toolkit-4.2.9-r2.ebuild:
+  Restore old version needed by media-libs/opencv and fix deps
+
+  04 Nov 2014; Patrick Lauer <patrick@gentoo.org>
+  -nvidia-cuda-toolkit-4.2.9-r2.ebuild:
+  Remove old version that has broken dependencies after toolchain changes
 
   15 Sep 2014; Justin Lecher <jlec@gentoo.org>
   nvidia-cuda-toolkit-6.5.14.ebuild:

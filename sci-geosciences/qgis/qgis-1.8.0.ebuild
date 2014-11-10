@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-geosciences/qgis/qgis-1.8.0.ebuild,v 1.4 2013/09/05 19:04:17 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-geosciences/qgis/qgis-1.8.0.ebuild,v 1.6 2014/11/10 15:21:40 pesa Exp $
 
 EAPI=5
 
@@ -39,7 +39,7 @@ RDEPEND="
 	x11-libs/qwt:5[svg]
 	!bundled-libs? ( <x11-libs/qwtpolar-1 )
 	grass? ( >=sci-geosciences/grass-6.4.0_rc6[python?] )
-	postgres? ( >=dev-db/postgresql-base-8.4 )
+	postgres? ( >=virtual/postgresql-8.4 )
 	python? (
 		dev-python/PyQt4[X,sql,svg,${PYTHON_USEDEP}]
 		dev-python/sip[${PYTHON_USEDEP}]
@@ -53,12 +53,13 @@ DEPEND="${RDEPEND}
 	sys-devel/bison
 	sys-devel/flex"
 
+PATCHES=(
+	"${FILESDIR}/${PN}-1.7.0-avoid-deprecated-pyqtconfig.patch"
+	"${FILESDIR}/${PN}-1.8.0-no-python-pyc.patch"
+)
+
 pkg_setup() {
 	python-single-r1_pkg_setup
-}
-
-src_prepare() {
-	epatch "${FILESDIR}"/${P}-no-python-pyc.patch
 }
 
 src_configure() {

@@ -1,10 +1,81 @@
 # ChangeLog for profile directory
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/profiles/ChangeLog,v 1.9508 2014/10/31 14:38:04 pacho Exp $
+# $Header: /var/cvsroot/gentoo-x86/profiles/ChangeLog,v 1.9531 2014/11/10 23:07:06 dilfridge Exp $
 #
 # This ChangeLog should include records for all changes in profiles directory.
 # Only typo fixes which don't affect portage/repoman behaviour could be avoided
 # here. If in doubt put a record here!
+
+  10 Nov 2014; Andreas K. Huettel <dilfridge@gentoo.org> package.mask:
+  Mask poppler-0.28 for an initial testing period
+
+  08 Nov 2014; William Hubbs <williamh@gentoo.org> package.mask:
+  qa: removed testing mask from >=sys-devel/distcc-3.2_rc1 wrt #518884
+
+  08 Nov 2014; Andreas K. Huettel <dilfridge@gentoo.org> package.mask:
+  Remove obsolete Perl 5.16 mask
+
+  08 Nov 2014; Markos Chandras <hwoarang@gentoo.org> package.mask:
+  Update lightdm mask
+
+  08 Nov 2014; Ben de Groot <yngwin@gentoo.org> updates/4Q-2014, package.mask:
+  Move libqtxdg to dev-libs category since razorqt-base is last-rited
+
+  08 Nov 2014; Patrick Lauer <patrick@gentoo.org> package.mask:
+  Keep razorqt-base/libqtxdg unmasked as it's needed by lxqt
+
+  08 Nov 2014; Andreas K. Huettel <dilfridge@gentoo.org> package.mask:
+  Remove obsolete mask of dev-perl/Lucene
+
+  08 Nov 2014; Andreas K. Huettel <dilfridge@gentoo.org> package.mask:
+  Remove obsolete mask of sys-devel/libperl
+
+  07 Nov 2014; Ian Stakenvicius (_AxS_) <axs@gentoo.org>
+  +default/linux/amd64/13.0/no-emul-linux-x86/desktop/eapi,
+  +default/linux/amd64/13.0/no-emul-linux-x86/desktop/parent, profiles.desc:
+  added desktop variant to the amd64 no-emul-linux-x86 profile to support more
+  real-world type testing
+
+  07 Nov 2014; Ben de Groot <yngwin@gentoo.org> package.mask:
+  Mask razorqt-base packages. They are unmaintained, unsupported, and are
+  starting to throw compilation errors.
+
+  06 Nov 2014; Manuel Rüger <mrueg@gentoo.org> package.mask:
+  Mask dev-ruby/prawn:0
+
+  06 Nov 2014; Manuel Rüger <mrueg@gentoo.org> package.mask:
+  Mask media-fonts/oxygen-fonts
+
+  06 Nov 2014; Julian Ospald <hasufell@gentoo.org> package.mask:
+  unmask dev-games/ogre-1.9.0
+
+  06 Nov 2014; Michał Górny <mgorny@gentoo.org>
+  desc/python_single_target.desc, desc/python_targets.desc:
+  Describe flags for PyPy3.
+
+  06 Nov 2014; Sergey Popov <pinkbyte@gentoo.org> package.mask:
+  Unmask net-im/qutim, it builds now.
+
+  05 Nov 2014; Ulrich Müller <ulm@gentoo.org> package.mask:
+  Mask app-emacs/csharp-mode for removal.
+
+  05 Nov 2014; Samuli Suominen <ssuominen@gentoo.org> package.mask:
+  Mask "ConsoleKit2" for testing.
+
+  4 Nov 2014; Matthias Maier <tamiko@gentoo.org> package.mask:
+  Mask app-emulation/virtinst for removal, #482472
+
+  03 Nov 2014; Aaron W. Swenson <titanofold@gentoo.org> package.mask:
+  Remove PostgreSQL masks
+
+  02 Nov 2014; Andreas K. Huettel <dilfridge@gentoo.org> package.mask:
+  Remove obsolete app-text/pastebin mask
+
+  02 Nov 2014; Ben de Groot <yngwin@gentoo.org> package.mask:
+  Add app-i18n/fcitx-qt5 to Qt5 package mask
+
+  02 Nov 2014; Alexis Ballier <aballier@gentoo.org> package.mask:
+  unmask kpathsea from tl 2014 since it is compatible
 
   31 Oct 2014; Pacho Ramos <pacho@gentoo.org>
   arch/powerpc/ppc32/package.use.stable.mask:
@@ -118,7 +189,7 @@
 
   22 Oct 2014; Ian Stakenvicius <axs@gentoo.org>
   default/linux/uclibc/amd64/package.mask:
-  Duplicate package.mask from features/64bit-native to 
+  Duplicate package.mask from features/64bit-native to
   uclibc/amd64 with blessings of blueness
 
   21 Oct 2014; Pacho Ramos <pacho@gentoo.org>

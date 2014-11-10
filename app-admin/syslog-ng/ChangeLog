@@ -1,6 +1,25 @@
 # ChangeLog for app-admin/syslog-ng
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/app-admin/syslog-ng/ChangeLog,v 1.403 2014/09/07 06:33:03 mr_bones_ Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-admin/syslog-ng/ChangeLog,v 1.407 2014/11/10 16:06:09 mr_bones_ Exp $
+
+  10 Nov 2014; Michael Sterrett <mr_bones_@gentoo.org> syslog-ng-3.6.1.ebuild:
+  fix upstream doc link and doc install - reported by Tomas Mozes via bug
+  #528788 and bug #528790
+
+  09 Nov 2014; Michael Sterrett <mr_bones_@gentoo.org> -syslog-ng-3.5.6.ebuild:
+  old
+
+*syslog-ng-3.6.1 (09 Nov 2014)
+
+  09 Nov 2014; Michael Sterrett <mr_bones_@gentoo.org>
+  +files/3.6/syslog-ng-3.6.1-link-smtp.patch, +files/3.6/syslog-ng.conf.gentoo,
+  +files/3.6/syslog-ng.conf.gentoo.fbsd,
+  +files/3.6/syslog-ng.conf.gentoo.hardened, +files/3.6/syslog-ng.confd,
+  +files/3.6/syslog-ng.rc6, +syslog-ng-3.6.1.ebuild, metadata.xml:
+  version bump to 3.6 series
+
+  02 Nov 2014; Agostino Sarubbo <ago@gentoo.org> syslog-ng-3.4.8.ebuild:
+  Stable for alpha, wrt bug #518404
 
   07 Sep 2014; Michael Sterrett <mr_bones_@gentoo.org> -syslog-ng-3.5.5.ebuild:
   old

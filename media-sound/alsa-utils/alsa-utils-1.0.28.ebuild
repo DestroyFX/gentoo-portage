@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-sound/alsa-utils/alsa-utils-1.0.28.ebuild,v 1.4 2014/10/23 10:46:39 pacho Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-sound/alsa-utils/alsa-utils-1.0.28.ebuild,v 1.6 2014/11/08 18:52:48 ssuominen Exp $
 
 EAPI=5
 inherit eutils systemd udev
@@ -11,16 +11,17 @@ SRC_URI="mirror://alsaproject/utils/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0.9"
-KEYWORDS="~alpha amd64 arm hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc x86"
+KEYWORDS="~alpha amd64 arm hppa ~ia64 ~mips ppc ppc64 ~sh ~sparc x86"
 IUSE="doc +libsamplerate +ncurses nls selinux"
 
-RDEPEND=">=media-libs/alsa-lib-${PV}
+CDEPEND=">=media-libs/alsa-lib-${PV}
 	libsamplerate? ( media-libs/libsamplerate )
-	ncurses? ( >=sys-libs/ncurses-5.7-r7 )
-	selinux? ( sec-policy/selinux-alsa )"
-DEPEND="${RDEPEND}
+	ncurses? ( >=sys-libs/ncurses-5.7-r7 )"
+DEPEND="${CDEPEND}
 	virtual/pkgconfig
 	doc? ( app-text/xmlto )"
+RDEPEND="${CDEPEND}
+	selinux? ( sec-policy/selinux-alsa )"
 
 src_prepare() {
 	epatch_user

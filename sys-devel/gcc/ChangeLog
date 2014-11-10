@@ -1,6 +1,17 @@
 # ChangeLog for sys-devel/gcc
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/sys-devel/gcc/ChangeLog,v 1.1030 2014/10/24 18:27:35 zlogene Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-devel/gcc/ChangeLog,v 1.1033 2014/11/04 03:20:47 vapier Exp $
+
+  04 Nov 2014; Mike Frysinger <vapier@gentoo.org> gcc-4.8.3.ebuild:
+  Mark arm64/m68k/s390/sh stable.
+
+  03 Nov 2014; Agostino Sarubbo <ago@gentoo.org> gcc-4.8.3.ebuild:
+  Stable for x86, wrt bug #516152
+
+*gcc-4.9.2 (01 Nov 2014)
+
+  01 Nov 2014; Mike Frysinger <vapier@gentoo.org> +gcc-4.9.2.ebuild:
+  Version bump #527480 by Markus.
 
   24 Oct 2014; Mikle Kolyada <zlogene@gentoo.org> gcc-4.8.3.ebuild:
   amd64 stable wrt bug #516152

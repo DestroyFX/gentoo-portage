@@ -1,6 +1,43 @@
 # ChangeLog for dev-python/pypy-bin
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/dev-python/pypy-bin/ChangeLog,v 1.22 2014/10/20 08:32:50 patrick Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-python/pypy-bin/ChangeLog,v 1.29 2014/11/09 08:33:11 mgorny Exp $
+
+  09 Nov 2014; Michał Górny <mgorny@gentoo.org> pypy-bin-2.4.0.ebuild:
+  Generate ctypes cache in src_compile() to diverge less from the remaining
+  ebuilds.
+
+  08 Nov 2014; Michał Górny <mgorny@gentoo.org>
+  -files/2.0.2-distutils-fix_handling_of_executables_and_flags.patch,
+  -files/2.1-distutils-fix_handling_of_executables_and_flags.patch,
+  -pypy-bin-2.0.2-r1.ebuild, -pypy-bin-2.2.1-r1.ebuild:
+  Drop old.
+
+  08 Nov 2014; Michał Górny <mgorny@gentoo.org> pypy-bin-2.4.0.ebuild:
+  Update and clean up the ebuild. Provide sane binary packages based on the
+  revised version of dev-python/pypy.
+
+  05 Nov 2014; Michał Górny <mgorny@gentoo.org> pypy-bin-2.3.1-r2.ebuild,
+  pypy-bin-2.4.0.ebuild:
+  Revert the gdbm change. I was wrong, and _gdbm is only in PyPy 3.
+
+  05 Nov 2014; Michał Górny <mgorny@gentoo.org> pypy-bin-2.3.1-r2.ebuild,
+  pypy-bin-2.4.0.ebuild:
+  Import _gdbm directly to generate cffi cache instead of gdbm. This avoids
+  unnecessary middle-imports and makes the block consistent with PyPy3.
+
+*pypy-bin-2.3.1-r2 (04 Nov 2014)
+
+  04 Nov 2014; Michał Górny <mgorny@gentoo.org> +pypy-bin-2.3.1-r2.ebuild,
+  -pypy-bin-2.3.1-r1.ebuild, pypy-bin-2.4.0.ebuild:
+  Rebuild ctypes config cache to fix resources module, bug #491404. Install
+  missing numpy headers.
+
+*pypy-bin-2.3.1-r1 (04 Nov 2014)
+
+  04 Nov 2014; Michał Górny <mgorny@gentoo.org> +pypy-bin-2.3.1-r1.ebuild,
+  -pypy-bin-2.3.1.ebuild, pypy-bin-2.4.0.ebuild:
+  Fix gdbm support, bug #519696. Add subslots to cffi-deps to force rebuilding
+  of modules.
 
 *pypy-bin-2.4.0 (20 Oct 2014)
 

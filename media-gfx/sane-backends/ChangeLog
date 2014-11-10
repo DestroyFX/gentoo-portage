@@ -1,6 +1,18 @@
 # ChangeLog for media-gfx/sane-backends
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/media-gfx/sane-backends/ChangeLog,v 1.260 2014/10/25 17:10:52 jer Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-gfx/sane-backends/ChangeLog,v 1.264 2014/11/10 10:52:50 ago Exp $
+
+  10 Nov 2014; Agostino Sarubbo <ago@gentoo.org> sane-backends-1.0.24-r5.ebuild:
+  Stable for ppc, wrt bug #525750
+
+  04 Nov 2014; Markus Meier <maekke@gentoo.org> sane-backends-1.0.24-r5.ebuild:
+  arm stable, bug #525750
+
+  04 Nov 2014; Agostino Sarubbo <ago@gentoo.org> sane-backends-1.0.24-r5.ebuild:
+  Stable for sparc, wrt bug #525750
+
+  03 Nov 2014; Agostino Sarubbo <ago@gentoo.org> sane-backends-1.0.24-r5.ebuild:
+  Stable for amd64, wrt bug #525750
 
   25 Oct 2014; Jeroen Roovers <jer@gentoo.org> sane-backends-1.0.24-r5.ebuild:
   Stable for HPPA (bug #525750).

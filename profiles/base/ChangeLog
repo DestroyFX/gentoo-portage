@@ -1,6 +1,29 @@
 # ChangeLog for Gentoo base-profile
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/profiles/base/ChangeLog,v 1.740 2014/10/30 21:01:49 dilfridge Exp $
+# $Header: /var/cvsroot/gentoo-x86/profiles/base/ChangeLog,v 1.747 2014/11/09 08:02:26 mgorny Exp $
+
+  09 Nov 2014; Michał Górny <mgorny@gentoo.org> package.use.force,
+  package.use.mask:
+  Remove stale masks on dev-python/python-exec.
+
+  08 Nov 2014; Patrick Lauer <patrick@gentoo.org> package.use.mask:
+  Mask razor useflag for lightdm as razorqt is masked
+
+  06 Nov 2014; Michał Górny <mgorny@gentoo.org> package.use.force,
+  package.use.mask, use.mask:
+  Update the USE masks, forces and defaults for PyPy3.
+
+  05 Nov 2014; Aaron W. Swenson <titanofold@gentoo.org> package.use.mask:
+  sci-libs/gdal|sci-libs/ogdi visibility issue fixed. Removing mask.
+
+  04 Nov 2014; Mike Gilbert <floppym@gentoo.org> package.use.stable.mask:
+  Revert last change.
+
+  04 Nov 2014; Mike Gilbert <floppym@gentoo.org> package.use.stable.mask:
+  Stable mask python3_4 on dev-python/pyudev.
+
+  02 Nov 2014; Mike Frysinger <vapier@gentoo.org> packages:
+  Drop texinfo @system #471192 by Alexis Ballier.
 
   30 Oct 2014; Andreas K. Huettel <dilfridge@gentoo.org>
   package.use.stable.mask:

@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-libs/glibc/glibc-2.20.ebuild,v 1.3 2014/09/16 04:30:18 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-libs/glibc/glibc-2.20.ebuild,v 1.6 2014/11/11 02:08:50 vapier Exp $
 
 EAPI="4"
 
@@ -10,7 +10,7 @@ DESCRIPTION="GNU libc6 (also called glibc2) C library"
 HOMEPAGE="http://www.gnu.org/software/libc/libc.html"
 
 LICENSE="LGPL-2.1+ BSD HPND ISC inner-net rc PCRE"
-#KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 -hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86"
 RESTRICT="strip" # strip ourself #46186
 EMULTILIB_PKG="true"
 
@@ -28,7 +28,7 @@ case ${PV} in
 esac
 GCC_BOOTSTRAP_VER="4.7.3-r1"
 PATCH_VER="1"                                  # Gentoo patchset
-NPTL_KERN_VER=${NPTL_KERN_VER:-"2.6.32"}       # min kernel version nptl requires
+: ${NPTL_KERN_VER:="2.6.32"}                   # min kernel version nptl requires
 
 IUSE="debug gd hardened multilib nscd selinux systemtap profile suid vanilla crosscompile_opts_headers-only"
 
@@ -54,8 +54,6 @@ if [[ ${CTARGET} == ${CHOST} ]] ; then
 	fi
 fi
 
-[[ ${CTARGET} == hppa* ]] && NPTL_KERN_VER=${NPTL_KERN_VER/2.6.16/2.6.20}
-
 is_crosscompile() {
 	[[ ${CHOST} != ${CTARGET} ]]
 }
@@ -76,13 +74,13 @@ RDEPEND="!sys-kernel/ps3-sources
 
 if [[ ${CATEGORY} == cross-* ]] ; then
 	DEPEND+=" !crosscompile_opts_headers-only? (
-		>=${CATEGORY}/binutils-2.20
+		>=${CATEGORY}/binutils-2.24
 		>=${CATEGORY}/gcc-4.4
 	)"
 	[[ ${CATEGORY} == *-linux* ]] && DEPEND+=" ${CATEGORY}/linux-headers"
 else
 	DEPEND+="
-		>=sys-devel/binutils-2.20
+		>=sys-devel/binutils-2.24
 		>=sys-devel/gcc-4.4
 		virtual/os-headers"
 	RDEPEND+=" vanilla? ( !sys-libs/timezone-data )"
@@ -158,13 +156,13 @@ eblit-src_unpack-pre() {
 	[[ -n ${GCC_BOOTSTRAP_VER} ]] && use multilib && unpack gcc-${GCC_BOOTSTRAP_VER}-multilib-bootstrap.tar.bz2
 }
 
-eblit-src_unpack-post() {
+eblit-src_prepare-post() {
 	cd "${S}"
 
 	if use hardened ; then
 		einfo "Patching to get working PIE binaries on PIE (hardened) platforms"
 		gcc-specs-pie && epatch "${FILESDIR}"/2.17/glibc-2.17-hardened-pie.patch
-		epatch "${FILESDIR}"/2.18/glibc-2.18-hardened-inittls-nosysenter.patch
+		epatch "${FILESDIR}"/2.20/glibc-2.20-hardened-inittls-nosysenter.patch
 
 		# We don't enable these for non-hardened as the output is very terse --
 		# it only states that a crash happened.  The default upstream behavior

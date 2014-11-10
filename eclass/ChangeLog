@@ -1,6 +1,63 @@
 # ChangeLog for eclass directory
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/ChangeLog,v 1.1397 2014/10/31 00:57:49 pesa Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/ChangeLog,v 1.1413 2014/11/11 00:49:30 monsieurp Exp $
+
+  11 Nov 2014; Patrice Clement <monsieurp@gentoo.org> perl-module.eclass:
+  Added documentation to undocumented functions. 
+
+  09 Nov 2014; Michał Górny <mgorny@gentoo.org> python-any-r1.eclass,
+  python-utils-r1.eclass:
+  Move the has_version checks on installed implementations to
+  python_is_installed() function. Accept PyPy when the implementation is
+  installed, even if the virtual is not.
+
+  09 Nov 2014; Andreas K. Huettel <dilfridge@gentoo.org> perl-module.eclass:
+  Add docs and deprecate perlinfo and fixlocalpod
+
+  09 Nov 2014; Andreas K. Huettel <dilfridge@gentoo.org> perl-module.eclass:
+  All in-tree ebuilds with EAPI=4 using perl-module.eclass are gone. Switch
+  deprecation message to super-annoying mode.
+
+  09 Nov 2014; Sebastian Pipping <sping@gentoo.org> python-r1.eclass:
+  Use python 3.4 rather than dead 3.2 in python-r1 examples
+
+  07 Nov 2014; Ian Stakenvicius (_AxS_) <axs@gentoo.org>
+  python-single-r1.eclass:
+  Help PMs figure out what to do by turning off unimplemented
+  python_single_target_* flags in PYTHON_USEDEP; thanks to mgorny, floppym and
+  Arfrever for reviews
+
+  07 Nov 2014; Ian Stakenvicius (_AxS_) <axs@gentoo.org>
+  python-single-r1.eclass:
+  fixed whitespace
+
+  06 Nov 2014; Ian Stakenvicius <axs@gentoo.org> python-single-r1.eclass:
+  When only one supported python implementation can satisfy an ebuild, do
+  not provide python_single_target_* flags in IUSE -- effectively, rely
+  only on PYTHON_TARGETS rather than the value specified in PYTHON_SINGLE_TARGET.
+
+  05 Nov 2014; Ian Stakenvicius <axs@gentoo.org> mozconfig-v5.33.eclass:
+  Move IUSE=selinux to the eclass
+
+  05 Nov 2014; Michał Górny <mgorny@gentoo.org> python-r1.eclass,
+  python-utils-r1.eclass, tests/python-utils-r1.sh:
+  Add support for PyPy3.
+
+  05 Nov 2014; Andreas K. Huettel <dilfridge@gentoo.org> perl-module.eclass:
+  Remove unused function perl_set_eprefix
+
+  04 Nov 2014; Justin Lecher <jlec@gentoo.org> toolchain.eclass:
+  Fix broken dependencies due to gcc multislotting, #528194, #528196
+
+  02 Nov 2014; Andreas K. Huettel <dilfridge@gentoo.org> perl-app.eclass:
+  Remove handling of EAPI=0,1,2 since that codepath cannot run anymore anyway
+
+  01 Nov 2014; Davide Pesavento <pesa@gentoo.org> qmake-utils.eclass:
+  eqmake4(): support new qmake install location (patch by mgorny).
+
+  01 Nov 2014; Andreas K. Huettel <dilfridge@gentoo.org> perl-module.eclass:
+  Drop EAPI=0,1,2,3 support in perl-module.eclass, this time for real. Further
+  cleanups will follow.
 
   31 Oct 2014; Davide Pesavento <pesa@gentoo.org> multibuild.eclass:
   Make sure BUILD_DIR exists before pushd'ing into it.

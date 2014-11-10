@@ -1,6 +1,51 @@
 # ChangeLog for app-emulation/libvirt
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/libvirt/ChangeLog,v 1.378 2014/10/31 12:15:03 tamiko Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/libvirt/ChangeLog,v 1.388 2014/11/08 18:23:51 tamiko Exp $
+
+  08 Nov 2014; Matthias Maier <tamiko@gentoo.org> -libvirt-1.2.9.ebuild:
+  drop vulnerable wrt bug #528440
+
+  08 Nov 2014; Agostino Sarubbo <ago@gentoo.org> libvirt-1.2.9-r2.ebuild:
+  Stable for x86, wrt bug #528440
+
+  08 Nov 2014; Agostino Sarubbo <ago@gentoo.org> libvirt-1.2.9-r2.ebuild:
+  Stable for amd64, wrt bug #528440
+
+  08 Nov 2014; Matthias Maier <tamiko@gentoo.org> libvirt-9999.ebuild:
+  switch to git-r3; cleanup
+
+  08 Nov 2014; Matthias Maier <tamiko@gentoo.org> libvirt-9999.ebuild:
+  disable -Werror for live builds; minor cleanup
+
+*libvirt-1.2.10 (06 Nov 2014)
+*libvirt-1.2.9-r2 (06 Nov 2014)
+
+  06 Nov 2014; Matthias Maier <tamiko@gentoo.org>
+  +files/libvirt-1.2.10-cve-2014-7823.patch,
+  +files/libvirt-1.2.9-cve-2014-7823.patch, +libvirt-1.2.10.ebuild,
+  +libvirt-1.2.9-r2.ebuild, -libvirt-1.2.9-r1.ebuild, libvirt-9999.ebuild:
+  version bump wrt bug #528300, backport fix for CVE-2014-7823 wrt bug #528440,
+  drop vulnerable
+
+  03 Nov 2014; Matthias Maier <tamiko@gentoo.org> libvirt-1.2.9-r1.ebuild,
+  libvirt-9999.ebuild:
+  prevent systemd autodetection, bug 508374
+
+  03 Nov 2014; Patrick Lauer <patrick@gentoo.org> libvirt-1.2.9-r1.ebuild,
+  libvirt-9999.ebuild:
+  Whitespace
+
+  03 Nov 2014; Matthias Maier <tamiko@gentoo.org> libvirt-1.2.9-r1.ebuild:
+  fix typo, print elog message when replacing...
+
+*libvirt-1.2.9-r1 (03 Nov 2014)
+
+  03 Nov 2014; Matthias Maier <tamiko@gentoo.org>
+  +files/libvirt-1.2.9-do_not_use_sysconf.patch, +files/libvirtd.service.conf,
+  +libvirt-1.2.9-r1.ebuild, -files/libvirt-1.2.6-numa.patch,
+  libvirt-9999.ebuild, metadata.xml:
+  add wireshark-plugins use flag, bug 508340; do not install into runtime paths,
+  bug 520408; do not install into units use /etc/sysconfig, bug 477524
 
   31 Oct 2014; Matthias Maier <tamiko@gentoo.org> libvirt-1.2.9.ebuild,
   libvirt-9999.ebuild:
