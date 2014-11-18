@@ -1,6 +1,15 @@
 # ChangeLog for kde-base/kiriki
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/kde-base/kiriki/ChangeLog,v 1.223 2014/10/25 20:40:47 mrueg Exp $
+# $Header: /var/cvsroot/gentoo-x86/kde-base/kiriki/ChangeLog,v 1.225 2014/11/16 12:21:26 alexxy Exp $
+
+*kiriki-4.14.3 (16 Nov 2014)
+
+  16 Nov 2014; Alexey Shvetsov <alexxy@gentoo.org> +kiriki-4.14.3.ebuild:
+  Version bump KDE SC 4.14.3
+
+  14 Nov 2014; Manuel Rüger <mrueg@gentoo.org> -kiriki-4.13.3.ebuild,
+  -kiriki-4.14.1.ebuild:
+  Cleanup old.
 
   25 Oct 2014; Manuel Rüger <mrueg@gentoo.org> -kiriki-4.14.0.ebuild:
   Cleanup KDE SC 4.14.0
